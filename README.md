@@ -2,7 +2,6 @@
 
 > To run the app you have to get a firebase credentials (JSON key file And Service Account Key JSON file), generate from your Firabase Console
 
-before starting
 
 ## setup
 
