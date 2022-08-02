@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+    postgres:
+        image: postgres
+        container_name: "postgresql"
+        restart: always
+        environment:
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=user123
+            - POSTGRES_DB=bankuish
+        ports:
+            - 5432:5432
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: "admin@postgres.com"
+            PGADMIN_DEFAULT_PASSWORD: "admin"
+        ports:
+            - "8080:80"
+        depends_on:
+            - postgres
+    app:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: node
+        container_name: "app"
+        environment:
+            - DB_HOST=postgresql
+        restart: always
+        ports:
+            - "3000:3000"
+        depends_on:
+            - postgres
